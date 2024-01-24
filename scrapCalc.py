@@ -25,7 +25,7 @@ def calculator(commodity, quantity, prevSum):
     if commodityFound == True:
         sum = (float(commodityPrice)*quantity)
         prevSum+=round(sum,2)
-        commodityReturn = f"Commodity Code:\t{commodityCode}\nCommodity Name:\t{commodityName}\nCommodity Price\t${commodityPrice}/lb\nQuantity:\t{quantity}lb(s)\nSub-Total:\t${sum:.2f}\n", prevSum, round(sum,2), commodityName
+        commodityReturn = f"Commodity Code:\t{commodityCode}\nCommodity Name:\t{commodityName}\nCommodity/lb:\t${commodityPrice}/lb\nQuantity:\t{quantity}lb(s)\nSub-Total:\t${sum:.2f}\n", prevSum, round(sum,2), commodityName
     return commodityReturn
 
 def reciept(commodityList, quantityList, sumList, sumTotal):
@@ -73,12 +73,15 @@ def reciept(commodityList, quantityList, sumList, sumTotal):
     while recieptIterator<len(commodityList):
         reciept+=(f"|{commodityHolder[recieptIterator]}|{quantityHolder[recieptIterator]}|{sumHolder[recieptIterator]}|\n|{'_'*(commodityLength)}|{'_'*(quantityLength)}|{'_'*(sumLength)}|\n")
         recieptIterator+=1
+    print(len(str(sumTotal)), len(str(f"{sumList[0]:.2f}")))
+    print(sumLength)
     SubTotalTitle = (f"{' '*(math.floor(((commodityLength+quantityLength+1)-len('Sub-Total'))/2))}Sub-Total{' '*math.ceil(((commodityLength+quantityLength+1)-len('Sub-Total'))/2)}")
-    SubTotalCost = (f"{' '*math.floor(((sumLength-len(str({sumTotal})))-1)/2)}${sumTotal}{' '*math.ceil(((sumLength)-len(str({sumTotal})))/2)}")
-    print(len(str(sumTotal)))
+    SubTotalCost = (f"{' '*((math.floor(((sumLength-len(str(sumTotal)))/2)))-1)}${sumTotal}{' '*(math.ceil(((sumLength)-len(str(sumTotal)))/2))}")
+    print(sumLength-len(str(round(sumTotal))))
+    print((((sumLength-len(str(round(sumTotal)))))))
 
     TotalTitle = (f"{' '*(math.floor(((commodityLength+quantityLength+1)-len('Total'))/2))}Total{' '*math.ceil(((commodityLength+quantityLength+1)-len('Total'))/2)}")
-    TotalCost = (f"{' '*math.floor((sumLength-len(str({round(sumTotal)})))/2)}${round(sumTotal)}{' '*math.ceil(((sumLength+1)-len(str({round(sumTotal)})))/2)}")
+    TotalCost = (f"{' '*math.floor(((sumLength-len(str(round(sumTotal))))/2))}{round(sumTotal)}{' '*math.ceil(((sumLength)-len(str(round(sumTotal))))/2)}")
 
     reciept+=(f"|{SubTotalTitle}|{SubTotalCost}|\n|{'_'*(commodityLength)}_{'_'*(quantityLength)}|{'_'*(sumLength)}|\n")
     reciept+=(f"|{TotalTitle}|{TotalCost}|\n|{'_'*(commodityLength)}_{'_'*(quantityLength)}|{'_'*(sumLength)}|\n")
