@@ -44,8 +44,6 @@ def reciept(commodityList, quantityList, sumList, sumTotal):
     commodityLength += 2
     quantityLength += 5
     sumLength += 3
-    print(quantityList)
-    print(commodityLength, quantityLength, sumLength, totalLength)
     reciept = (f" {'_'*(commodityLength+quantityLength+sumLength+2)}\n")
     left = 0
     right = 0
@@ -73,19 +71,16 @@ def reciept(commodityList, quantityList, sumList, sumTotal):
     while recieptIterator<len(commodityList):
         reciept+=(f"|{commodityHolder[recieptIterator]}|{quantityHolder[recieptIterator]}|{sumHolder[recieptIterator]}|\n|{'_'*(commodityLength)}|{'_'*(quantityLength)}|{'_'*(sumLength)}|\n")
         recieptIterator+=1
-    print(len(str(sumTotal)), len(str(f"{sumList[0]:.2f}")))
-    print(sumLength)
     SubTotalTitle = (f"{' '*(math.floor(((commodityLength+quantityLength+1)-len('Sub-Total'))/2))}Sub-Total{' '*math.ceil(((commodityLength+quantityLength+1)-len('Sub-Total'))/2)}")
     SubTotalCost = (f"{' '*((math.floor(((sumLength-len(str(sumTotal)))/2)))-1)}${sumTotal}{' '*(math.ceil(((sumLength)-len(str(sumTotal)))/2))}")
-    print(sumLength-len(str(round(sumTotal))))
-    print((((sumLength-len(str(round(sumTotal)))))))
 
     TotalTitle = (f"{' '*(math.floor(((commodityLength+quantityLength+1)-len('Total'))/2))}Total{' '*math.ceil(((commodityLength+quantityLength+1)-len('Total'))/2)}")
-    TotalCost = (f"{' '*math.floor(((sumLength-len(str(round(sumTotal))))/2))}{round(sumTotal)}{' '*math.ceil(((sumLength)-len(str(round(sumTotal))))/2)}")
-
+    TotalCost = (f"{' '*math.floor(((sumLength-len(str(round(sumTotal))))/2)-1)}${round(sumTotal)}{' '*math.ceil(((sumLength)-len(str(round(sumTotal))))/2)}")
+    
+    reciept+=((f"{('|'+('_'*(commodityLength))+'|'+('_'*(quantityLength))+'|'+('_'*(sumLength))+'|')}\n")*2)
     reciept+=(f"|{SubTotalTitle}|{SubTotalCost}|\n|{'_'*(commodityLength)}_{'_'*(quantityLength)}|{'_'*(sumLength)}|\n")
     reciept+=(f"|{TotalTitle}|{TotalCost}|\n|{'_'*(commodityLength)}_{'_'*(quantityLength)}|{'_'*(sumLength)}|\n")
-    print(reciept, sumTotal)  
+    return reciept  
 
 quickSearchList = ""
 for row in open("quickSearch.csv"):
@@ -98,8 +93,8 @@ sumList = []
 while True:
     sumPerItem = 0
     itemName = ""
-    commodityInput = input("Enter Commodity:\t")
-    if(commodityInput == "n"):
+    commodityInput = input("Enter Commodity:")
+    if(commodityInput == "End"):
         print(reciept(commodityList, quantityList, sumList, sum))
         break
     quantityInput = input("Enter Quantity:\t")
