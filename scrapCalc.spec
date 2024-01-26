@@ -34,5 +34,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['C:\\Users\\Dakota\\.vscode\\gitHubProjects\\bb.ico'],
+    icon=['C:\\Users\\Dakota\\.vscode\\gitHubProjects\\ScrapCalcLogo.ico'],
 )

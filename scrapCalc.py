@@ -1,6 +1,7 @@
 import math
 import csv
 import datetime
+import os
 def calculator(commodity, quantity, prevSum):
     commodityList = []
     commodityFound = False
@@ -17,7 +18,7 @@ def calculator(commodity, quantity, prevSum):
     while i<len(commodityList) and commodityFound == False:
         splitRowHolder = commodityList[i].split(":")
         for item in splitRowHolder:
-            if item==commodity:
+            if item.lower()==commodity:
                 commodityFound = True
                 commodityCode = splitRowHolder[1]
                 commodityName = splitRowHolder[2]
@@ -89,6 +90,7 @@ def receipt(commodityList, quantityList, sumList, sumTotal):
 
 endProgram = False
 while endProgram == False:
+    os.system('cls||clear')
     color = "\x1b[33;33m"
     colorReset = "\x1b[0m"
     quickSearchList = ""
@@ -107,7 +109,9 @@ while endProgram == False:
         itemName = ""
         print(f"{color}{'-'*62}\n{'-'*62}{colorReset}")
         commodityInput = input("\tEnter Commodity:")
-        if(commodityInput == "Receipt"):
+        if commodityInput.isnumeric()==False:
+            commodityInput=commodityInput.lower()
+        if(commodityInput == "receipt"):
             printableReceipt = receipt(commodityList, quantityList, sumList, sum)
             purchaseTime = f"{datetime.datetime.now()}\n"
             with open("ReceiptLog.txt", "a") as r:
@@ -117,7 +121,7 @@ while endProgram == False:
             print(printableReceipt)
             input("Press Enter To Continue")
             break
-        elif(commodityInput == "Close"):
+        elif(commodityInput == "close"):
             endProgram = True
             break
         quantityInput = input("\tEnter Quantity:\t")
