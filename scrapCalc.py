@@ -1,5 +1,4 @@
 import math
-import csv
 import datetime
 import os
 def calculator(commodity, quantity, prevSum):
@@ -20,9 +19,9 @@ def calculator(commodity, quantity, prevSum):
         for item in splitRowHolder:
             if item.lower()==commodity:
                 commodityFound = True
-                commodityCode = splitRowHolder[1]
-                commodityName = splitRowHolder[2]
-                commodityPrice = splitRowHolder[3]
+                commodityCode = splitRowHolder[0]
+                commodityName = splitRowHolder[1]
+                commodityPrice = splitRowHolder[2]
                 break
         i+=1
     if commodityFound == True:
