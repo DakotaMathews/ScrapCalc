@@ -54,11 +54,13 @@ def quickSeachConstructor(nameList, codeList):
     codesList = [' Commodity Code ']
 
     quickSearch = ''
+    quickSearchOutput = ''
     for name in nameList:
         if len(name)>nameLength:
             nameLength = len(name)
     nameLength+=2
-    quickSearch+=f" {'_'*((length)*2+(nameLength)+2)}\n"
+    quickSearch+=f"  {'_'*((length)*2+(nameLength)+2)}\n"
+    quickSearchOutput+=f"\t  {'_'*((length)*2+(nameLength)+2)}\n"
     quickIterator = 1
     while quickIterator<6:
         quickList.append(f"{' '*7}{quickIterator}{' '*8}")
@@ -70,35 +72,75 @@ def quickSeachConstructor(nameList, codeList):
         commodityList.append(f"{' '*left}{name}{' '*right}")
     quickSearchIterator = 0
     while quickSearchIterator<6:
-        quickSearch+=f"|{quickList[quickSearchIterator]}|{commodityList[quickSearchIterator]}|{codesList[quickSearchIterator]}|\n|{('_'*(length))}|{('_'*(nameLength))}|{('_'*(length))}|\n"
+        quickSearch+=f" |{quickList[quickSearchIterator]}|{commodityList[quickSearchIterator]}|{codesList[quickSearchIterator]}|\n |{('_'*(length))}|{('_'*(nameLength))}|{('_'*(length))}|\n"
+        quickSearchOutput+=f"\t |{quickList[quickSearchIterator]}|{commodityList[quickSearchIterator]}|{codesList[quickSearchIterator]}|\n\t |{('_'*(length))}|{('_'*(nameLength))}|{('_'*(length))}|\n"
         quickSearchIterator+=1
-    if input(f"{quickSearch}\nDoes List look Correct? Y/N\t").lower() == 'n':
-        return
-    with open("eeee.csv", "w") as r:
-        r.truncate()
+
+    if input(f"{quickSearchOutput}\n{color}{'-'*62}\n{'-'*62}{colorReset}\n\tDoes List look Correct? Y/N\t").lower() == 'n':
+        return False, False
+    with open("quickSearch.csv", "w") as list:
+        list.truncate()
         for line in quickSearch:
-            r.write(line)
+            list.write(line)
+    return commodityList, codeList
+
+def referenceListConstructor(commodityRefList, codeRefList):
+    commodityRefList.pop(0)
+    refCommodityList = []
+    priceList = []
+    for row in open("commodityList.csv"):
+        refCommodityList.append(row)
+    refString = ''
+    refIterator = 0
+    while refIterator<5:
+        commodityRefList[refIterator] = commodityRefList[refIterator].replace(' ', '')
+        refListIterator = 0
+        while refListIterator < len(refCommodityList):
+            refSplit = refCommodityList[refListIterator].split(":")
+            for item in refSplit:
+                if item == codeRefList[refIterator]:
+                    priceList.append(refSplit[2])
+                    break
+            refListIterator+=1
+        refString+=f"{codeRefList[refIterator]}:{commodityRefList[refIterator]}:{priceList[refIterator]}:\n"
+        refListIterator=0
+        refIterator+=1
+    with open("quickSearchReference.csv", "w") as list:
+        list.truncate()
+        for line in refString:
+            list.write(line)
+    
 
 
 
 
 while True:
+    os.system('cls||clear')
     quickSearchUserView = ''
     commodityNameList = []
     commodityCodeList = []
     quickSearchHolder = []
-    for row in open('eeee.csv'):
+    color = "\x1b[33;33m"
+    colorReset = "\x1b[0m"
+    quickSearchList = ""
+    logoHolder = ""
+    for row in open("scrapLogo.csv"):
+        logoHolder+=(f"\t{color}{row}")
+    for row in open('quickSearch.csv'):
         quickSearchHolder.append(row)
         quickSearchUserView+=row
-    print(quickSearchUserView)
+        quickSearchList+=(f"\t{colorReset}{row}")
+    print(logoHolder,quickSearchList)
+    print(f"{color}{'-'*62}\n{'-'*62}{colorReset}")
     NameCodeIterator = 3
     while NameCodeIterator<13:
         commodityNameList.append((re.findall(r'\S+',(((quickSearchHolder[NameCodeIterator]).split('|')))[2]))[0])
         commodityCodeList.append((re.findall(r'\S+',(((quickSearchHolder[NameCodeIterator]).split('|')))[3]))[0])
         NameCodeIterator+=2
-    changeInput = input("What Quick Search Function Would You Like to Change?")
+    changeInput = input(f"\tWhat Quick Search Function Would You Like to Change?\t")
     if len(changeInput)<1 or (len(changeInput)==1 and changeInput.isnumeric()==False):
-        input('Please Input Valid Amount of Characters\nPress Enter to Continue')
+        print(f"{color}{'-'*62}\n{'-'*62}{colorReset}")
+        input(f'\tPlease Input Valid Amount of Characters\n\tPress Enter to Continue')
         os.system('cls||clear')
         continue
     if changeInput.isnumeric()==False:
@@ -109,23 +151,30 @@ while True:
     if changeInput.isnumeric()==True and len(changeInput)==1:
         commodityLocation = int(changeInput)-1
     if changeInputBool == False and len(changeInput)>1:
-        input('Commodity Does Not Exist in Quick Search\nPress Enter to Continue')
+        print(f"{color}{'-'*62}\n{'-'*62}{colorReset}")
+        input(f'\tCommodity Does Not Exist in Quick Search\n\tPress Enter to Continue')
         os.system('cls||clear')
         continue
-    commodityInput = input("Enter Commodity You Would Like to Switch too")
+    commodityInput = input(f"\tEnter Commodity You Would Like to Switch too?\t\t")
+    print(f"{color}{'-'*62}\n{'-'*62}{colorReset}")
     if commodityInput.isnumeric()==False:
         commodityInput.lower()
     commodityInputBool = commodityInList(commodityInput, commodityNameList, commodityCodeList)
     if commodityInputBool[0] == True:
-        input('Commodity Already Exists in Quick Search\nPress Enter to Continue')
+        input(f'\tCommodity Already Exists in Quick Search\n\tPress Enter to Continue')
         os.system('cls||clear')
         continue
     code, name = commodityExists(commodityInput)
     if code == False:
-        input(f"Commodity '{commodityInput}' Could Not be Found\nPress Enter to Continue")
+        input(f"\tCommodity '{commodityInput}' Could Not be Found\n\tPress Enter to Continue")
         os.system('cls||clear')
         continue
     commodityNameList[commodityLocation]=name
     commodityCodeList[commodityLocation]=code
-    quickSeachConstructor(commodityNameList, commodityCodeList)
+    commodityRef, codeRef = quickSeachConstructor(commodityNameList, commodityCodeList)
+    if commodityRef == False:
+        os.system('cls||clear')
+        continue
+    referenceListConstructor(commodityRef, codeRef)
+    
     os.system('cls||clear')

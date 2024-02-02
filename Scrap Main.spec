@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['C:\\Users\\dakot\\.vscode\\VS Code\\GitHubProjects\\ScrapCalc\\Scrap Main.py'],
+    ['Scrap Main.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -34,5 +34,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['C:\\Users\\dakot\\Downloads\\ScrapCalcLogo.ico'],
+    icon=['C:\\Users\\Dakota\\.vscode\\gitHubProjects\\ScrapCalcLogo.ico'],
 )

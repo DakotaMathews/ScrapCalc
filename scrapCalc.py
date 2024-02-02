@@ -9,21 +9,30 @@ def calculator(commodity, quantity, prevSum):
     commodityCode = 0
     commodityReturn = ""
     sum = 0
-    if len(commodity)==1:
-        commodity+="."   
-    for row in open("commodityList.csv"):
-        commodityList.append(row)
-    i = 0
-    while i<len(commodityList) and commodityFound == False:
-        splitRowHolder = commodityList[i].split(":")
-        for item in splitRowHolder:
-            if item.lower()==commodity:
-                commodityFound = True
-                commodityCode = splitRowHolder[0]
-                commodityName = splitRowHolder[1]
-                commodityPrice = splitRowHolder[2]
-                break
-        i+=1
+    quickSearchTemp = ''
+    if len(commodity)==1 and 0<int(commodity)<6:
+        commodityFound = True
+        for row in open("quickSearchReference.csv"):
+            commodityList.append(row)
+        quickSearchTemp = commodityList[int(commodity)-1].split(':')
+        commodityCode = quickSearchTemp[0]
+        commodityName = quickSearchTemp[1]
+        commodityPrice = quickSearchTemp[2]
+        
+    else:  
+        for row in open("commodityList.csv"):
+            commodityList.append(row)
+        i = 0
+        while i<len(commodityList) and commodityFound == False:
+            splitRowHolder = commodityList[i].split(":")
+            for item in splitRowHolder:
+                if item.lower()==commodity:
+                    commodityFound = True
+                    commodityCode = splitRowHolder[0]
+                    commodityName = splitRowHolder[1]
+                    commodityPrice = splitRowHolder[2]
+                    break
+            i+=1
     if commodityFound == True:
         sum = (float(commodityPrice)*quantity)
         prevSum+=round(sum,2)

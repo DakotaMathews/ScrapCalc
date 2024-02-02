@@ -24,34 +24,54 @@ while True:
     if logoBool == True:
         print(logoString+colorReset)
     logoBool = True
-    calcBool = False
-    receiptBool = False
-    helpBool = False
+    calcBool = True
+    receiptBool = True
+    helpBool = True
+    quickSearchBool = True
     userChoice = input("\tWhat Would You Like to do?\t")
     userChoice = userChoice.lower()
+    if len(userChoice)==0:
+        calcBool = False
+        receiptBool = False
+        helpBool = False
+        quickSearchBool = False
     userChoiceIterator=0
     while userChoiceIterator<len(userChoice):
-        if len(userChoice)<=10 and userChoice[userChoiceIterator] == 'calculator'[userChoiceIterator]:
+        if len(userChoice)<=10 and (calcBool == True) and userChoice[userChoiceIterator] == 'calculator'[userChoiceIterator] and (calcBool == True):
             calcBool = True
-        elif len(userChoice)<=7 and userChoice[userChoiceIterator] == 'receipt'[userChoiceIterator]:
+            receiptBool = False
+            helpBool = False
+            quickSearchBool = False
+        elif len(userChoice)<=7 and (receiptBool == True) and userChoice[userChoiceIterator] == 'receipt'[userChoiceIterator]:
+            calcBool = False
             receiptBool = True
-        elif len(userChoice)<=4 and userChoice[userChoiceIterator] == 'help'[userChoiceIterator]:
+            helpBool = False
+            quickSearchBool = False
+        elif len(userChoice)<=4 and userChoice[userChoiceIterator] == 'help'[userChoiceIterator] and (helpBool == True):
+            calcBool = False
+            receiptBool = False
             helpBool = True
+            quickSearchBool = False
+        elif len(userChoice)<=10 and userChoice[userChoiceIterator] == 'quick list'[userChoiceIterator] and (quickSearchBool == True):
+            calcBool = False
+            receiptBool = False
+            helpBool = False
+            quickSearchBool = True
         else:
             calcBool = False
             receiptBool = False
             helpBool = False
+            quickSearchBool = False
             break
         userChoiceIterator+=1
-
     if  helpBool == True:
-        print("\tScrap Calculator = Calculator\n\tReceipt History = Receipt\n")
+        print("\tCalculator = Scrap Calculator\n\tReceipt = Receipt History\n\tQuick List = Quick Search Edit")
         input("\tPress Enter to Continue")
         helpBool == False
         os.system("cls||close")
         continue
     elif calcBool == True:
-        (subprocess.Popen([fr"Scrap Calc.exe"])).wait()
+        (subprocess.Popen([fr"ScrapCalc.exe"])).wait()
         calcBool = False
         os.system("cls||close")
         continue
@@ -66,6 +86,11 @@ while True:
         print(receiptPrint)
         input("\tPress Enter To Continue")
         receiptBool==False
+        os.system("cls||close")
+        continue
+    elif quickSearchBool == True:
+        (subprocess.Popen([fr"QuickSearchEdit.exe"])).wait()
+        calcBool = False
         os.system("cls||close")
         continue
     elif userChoice == 'close':
