@@ -1,6 +1,61 @@
 40013:Batteries:0.18:
-12050:ALCarRims:0.85:
+10008:3003 ALSolids:0.75:
+10012:5052 AlSolids:0.80:
+10023:6061 AlExt:0.78:
+10024:6061 AlSheet:0.55:
+10025:6063 AlExt:0.78:
+10026:1010 AlExt-Clean:0.78:
+10035:AlECWire:0.97:
+10038:AlLitho:080:
+10040:AlMLC:0.59:
+10044:AlTruckRims:0.52
+10045:AlUBC-Clean:0.25:
+10049:AlPaintedSiding:0.59:
+12001:AlCast-Clean:0.47:
+12009:AlCast-Dirty:0.15:
+12011:2000 AlPucks:0.39:
+12022:7000 AlSolids:0.42:
+12033:AlChromeRims:0.46:
+12036:AlCopperRads-Clean:2.08:
+12037:AlCopperRads-Dirty:1.68:
+12040:1010 AlExt-Dirty:0.50:
+12043:AlMixed-Clean:0.55:
+12044:AlOldSheet:0.55:
+12045:AlOldSheet-Dirty:0.42:
+12046:AlRads-Clean:0.52:
+12047:AlRads-Dirty:0.65:
+12050:ALCarRims-Clean:0.85:
+12051:ALCarRims-Dirty:0.65:
+12054:AlThermalBreak-Clean:0.52:
+12055:AlThermalBreak-Dirty:0.52:
+12056:AlTurnings-Clean:0.22:
+12057:AlTurnings-Dirty:0.15:
+12074:AlFoil:0.15:
+18002:AlRadEnds:0.08:
+18005:AlMixed-Dirty:0.15:
+18008:AlAcCompressors:0.15:
+18009:AlTransformers:0.15:
+18010:AlTurnings-Irony:0.15:
+18013:AirConditioners:0.15:
+18014:MotorsWithTrans:0.16:
+20003:70/30 BrassTube:3.07:
+20011:BareBrassShells:1.70:
+20013:MixedBrassShells:1.50:
+20015:BrassEDMWire:2.98:
+20023:RodBrassSolids:2.98:
+20024:RodBrassTurnings:2.64:
+20026:YellowBrassSolids:2.79:
+20027:YellowBrassTurnings:2.69:
+21001:CMetalSolids:3.21:
+21002:CMetalTurnings:2.69:
+21003:RedBrassSolids:3.16:
+21004:RedBrassTurnings:2.64:
+21005:HardBrassSolids:3.16:
+21006:HardBrassTurnings:2.64:
+
+
+
+
 10001:BareBright:4.42:    
 10002:Copper#1:4.35:
 10003:Copper#2:4.06: 
-10004:cc:44:

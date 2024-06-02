@@ -9,15 +9,13 @@ logoList = []
 logoString = ''
 logoBool = False
 for row in open('scrapLogo.csv'):
-    logoList.insert(0,row)
+    logoList.append('\t'+color+row)
 logoiIterator = 0
-while logoiIterator<len(logoList):
-    logoString = '\t'+color+logoList[logoiIterator]+logoString
-    print(logoString)
+for x in logoList:
+    logoString+=x
+    print(x, end='\r')
     logoiIterator+=1
     time.sleep(.1)
-    if logoiIterator<len(logoList):
-        os.system("cls||close")
 print(colorReset)
 
 while True:

@@ -82,7 +82,7 @@ def quickSeachConstructor(nameList, codeList):
         list.truncate()
         for line in quickSearch:
             list.write(line)
-    return commodityList, codeList
+    return nameList, commodityList, codeList
 
 def referenceListConstructor(commodityRefList, codeRefList):
     commodityRefList.pop(0)
@@ -93,7 +93,6 @@ def referenceListConstructor(commodityRefList, codeRefList):
     refString = ''
     refIterator = 0
     while refIterator<5:
-        commodityRefList[refIterator] = commodityRefList[refIterator].replace(' ', '')
         refListIterator = 0
         while refListIterator < len(refCommodityList):
             refSplit = refCommodityList[refListIterator].split(":")
@@ -171,10 +170,10 @@ while True:
         continue
     commodityNameList[commodityLocation]=name
     commodityCodeList[commodityLocation]=code
-    commodityRef, codeRef = quickSeachConstructor(commodityNameList, commodityCodeList)
+    nameRef, commodityRef, codeRef = quickSeachConstructor(commodityNameList, commodityCodeList)
     if commodityRef == False:
         os.system('cls||clear')
         continue
-    referenceListConstructor(commodityRef, codeRef)
+    referenceListConstructor(nameRef, codeRef)
     
     os.system('cls||clear')

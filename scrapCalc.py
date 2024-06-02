@@ -26,7 +26,7 @@ def calculator(commodity, quantity, prevSum):
         while i<len(commodityList) and commodityFound == False:
             splitRowHolder = commodityList[i].split(":")
             for item in splitRowHolder:
-                if item.lower()==commodity:
+                if (item.replace(' ','')).lower()==commodity:
                     commodityFound = True
                     commodityCode = splitRowHolder[0]
                     commodityName = splitRowHolder[1]
